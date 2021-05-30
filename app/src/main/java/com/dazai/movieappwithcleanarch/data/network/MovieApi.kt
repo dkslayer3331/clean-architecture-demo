@@ -1,4 +1,6 @@
 package com.dazai.movieappwithcleanarch.data.network
+import com.dazai.movieappwithcleanarch.data.models.MovieResponseVO
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -7,5 +9,5 @@ interface MovieApi {
     suspend fun getMovies(
         @Query("api_key") apiKey: String,
         @Query("page") page: Int
-    ): Any //todo : movie vo here
+    ): MovieResponseVO //todo : movie vo here
 }
