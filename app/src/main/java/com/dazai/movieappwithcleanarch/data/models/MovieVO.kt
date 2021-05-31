@@ -1,8 +1,12 @@
 package com.dazai.movieappwithcleanarch.data.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "movie")
 data class MovieVO(
+    @PrimaryKey
     @SerializedName("id")
     val id : Long,
     @SerializedName("poster_path")

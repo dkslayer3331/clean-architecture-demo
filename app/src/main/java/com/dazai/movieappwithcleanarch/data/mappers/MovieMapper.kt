@@ -6,6 +6,9 @@ import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.fullImageUrl
 
 class MovieMapper : GenericMapper<MovieEntity, MovieVO>{
+
+    //todo : need to inject this in repository
+
     override fun toEntity(model: MovieVO): MovieEntity {
         return MovieEntity(
             originalTitle = model.originalTitle,
