@@ -6,5 +6,5 @@ import retrofit2.http.Query
 
 interface MovieApi {
     @GET("/3/movie/popular")
-    suspend fun getMovies(): Flow<MovieResponseVO>
+    suspend fun getMovies(): MovieResponseVO
 }

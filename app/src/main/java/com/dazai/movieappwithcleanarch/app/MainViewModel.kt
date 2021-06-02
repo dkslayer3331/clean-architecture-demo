@@ -4,13 +4,14 @@ import androidx.lifecycle.*
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel constructor(
+class MainViewModel @Inject constructor(
     private val useCase: MovieUseCase
 ) : ViewModel(){
 
@@ -20,9 +21,9 @@ class MainViewModel constructor(
        showMovies()
     }
 
-    private fun showMovies(){
+     fun showMovies(){
         viewModelScope.launch {
-            useCase.getMovies().map {
+            useCase.getMovies().collect {
                 movies.postValue(it)
             }
         }

@@ -3,19 +3,21 @@ package com.dazai.movieappwithcleanarch.data.di
 import com.dazai.movieappwithcleanarch.data.repositories.MovieRepositoryImpl
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
 import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
-import com.dazai.movieappwithcleanarch.domain.usecases.MovieUsecaseImpl
+import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Qualifier
 
+@InstallIn(SingletonComponent::class)
 @Module
-@InstallIn(ActivityComponent::class)
 abstract class BindModule {
 
     @Binds
     abstract fun bindMovieRepository(impl: MovieRepositoryImpl): MovieRepository
 
-    abstract fun bindMovieUsecase(impl : MovieUsecaseImpl) : MovieUseCase
+    @Binds
+    abstract fun bindMovieUseCase(impl : MovieUseCaseImpl) : MovieUseCase
 
 }

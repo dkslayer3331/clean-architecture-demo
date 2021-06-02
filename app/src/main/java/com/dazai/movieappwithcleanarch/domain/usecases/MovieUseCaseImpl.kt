@@ -5,7 +5,7 @@ import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class MovieUsecaseImpl @Inject constructor(
+class MovieUseCaseImpl @Inject constructor(
     private val repository: MovieRepository
 ) : MovieUseCase {
     override suspend fun getMovies(): Flow<List<MovieEntity>> {
