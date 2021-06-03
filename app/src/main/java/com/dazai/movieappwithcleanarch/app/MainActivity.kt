@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.dazai.movieappwithcleanarch.R
+import com.dazai.movieappwithcleanarch.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.movies.observe(this, Observer {
             Log.d("movies",it.size.toString())
+        })
+
+        viewModel.errorMessage.observe(this, Observer {
+            if(it.isNotEmpty()) this.showToast(it)
         })
 
     }

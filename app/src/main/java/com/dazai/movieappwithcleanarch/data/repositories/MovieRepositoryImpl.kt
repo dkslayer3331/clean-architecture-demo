@@ -16,22 +16,15 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun fetchMovies(): Flow<List<MovieEntity>> {
-//        try {
-//            api.getMovies().collect {
-//                db.movieDao().addMovies(it.movies)
-//            }
-//        }catch (e : Exception){
-//            Log.d("RepoErr",e.localizedMessage)
-//        }
-//        return db.movieDao().getMoviesDistinctUntilChanged()
         return flow {
             emit(api.getMovies().movies)
-        }.flowOn(Dispatchers.IO)
+        }
             .flatMapMerge {
                 db.movieDao().deleteAllMovies()
                 db.movieDao().addMovies(it)
                 return@flatMapMerge db.movieDao().getMoviesDistinctUntilChanged()
             }
+            .flowOn(Dispatchers.IO)
     }
 
     override suspend fun refreshMovies() {
