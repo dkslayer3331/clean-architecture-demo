@@ -3,6 +3,7 @@ package com.dazai.movieappwithcleanarch.data.repositories
 import android.util.Log
 import com.dazai.movieappwithcleanarch.data.db.AppDb
 import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
+import com.dazai.movieappwithcleanarch.data.models.MovieVO
 import com.dazai.movieappwithcleanarch.data.network.MovieApi
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
@@ -15,7 +16,7 @@ class MovieRepositoryImpl @Inject constructor(
     private val api: MovieApi, private val db: AppDb, private val mapper: MovieMapper
 ) : MovieRepository {
 
-    override suspend fun fetchMovies(): Flow<List<MovieEntity>> {
+    override suspend fun fetchMovies(): Flow<List<MovieVO>> {
         return flow {
             emit(api.getMovies().movies)
         }
@@ -28,7 +29,18 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun refreshMovies() {
-            fetchMovies()
+
+    }
+
+    private suspend fun getMoviesFromAvailableSource() : Flow<List<MovieVO>>{
+            val cache = db.movieDao().getAllMovies()
+            cache.collect {
+                if(it.isEmpty()){
+                    db.movieDao().addMovies(api.getMovies().movies)
+                }
+            }
+        return db.movieDao().getAllMovies()
+
     }
 
 }

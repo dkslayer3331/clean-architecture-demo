@@ -15,7 +15,7 @@ abstract class AppDb : RoomDatabase(){
 interface MovieDao{
 
     @Query("select * from movies")
-    fun getAllMovies() : Flow<List<MovieEntity>>
+    fun getAllMovies() : Flow<List<MovieVO>>
 
     @Insert
     suspend fun addMovies(movies : List<MovieVO>)

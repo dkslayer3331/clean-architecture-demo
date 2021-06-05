@@ -16,7 +16,7 @@ class MovieMapper @Inject constructor() : GenericMapper<MovieEntity, MovieVO>{
         )
         }
 
-    fun toMovieList(response : MovieResponseVO) : List<MovieEntity>{
-        return response.movies.map { toEntity(it) }
+    fun toMovieList(list : List<MovieVO>) : List<MovieEntity>{
+        return list.map { toEntity(it) }
     }
 }
