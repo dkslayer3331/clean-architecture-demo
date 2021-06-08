@@ -1,5 +1,6 @@
 package com.dazai.movieappwithcleanarch.app
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
@@ -28,13 +29,14 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             viewState.postValue(Result.Loading)
             useCase.getMovies().catch {
+                Log.d("ViewModelError",it.localizedMessage)
                 viewState.postValue(Result.Error(it.localizedMessage))
                 errorMessage.postValue(it.localizedMessage)
             }.collect {
+                Log.d("ViewModelMovies",it.size.toString())
                 movies.postValue(it)
                 viewState.postValue(Result.Success(it))
             }
-
         }
     }
 

@@ -15,4 +15,6 @@ data class MovieVO(
     val originalTitle : String,
     @SerializedName("title")
     val title : String,
+    @SerializedName("vote_average")
+    val vote : Float
 )

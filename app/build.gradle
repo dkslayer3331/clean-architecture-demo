@@ -44,6 +44,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
+
 
     def lifecycle_version = "2.3.1"
     def activity_fragment_version = "1.3.2"

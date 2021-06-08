@@ -1,11 +1,11 @@
 package com.dazai.movieappwithcleanarch.domain.usecases
 
+import android.util.Log
 import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class MovieUseCaseImpl @Inject constructor(
@@ -13,14 +13,15 @@ class MovieUseCaseImpl @Inject constructor(
         private val mapper: MovieMapper
 ) : MovieUseCase {
     override suspend fun getMovies(): Flow<List<MovieEntity>> {
-        return repository.fetchMovies().map {
+        return repository.fetchMovies().map{
             mapper.toMovieList(it)
         }
     }
 
     override suspend fun getHighRatedMovies(): Flow<List<MovieEntity>> {
-        //todo : left impl
-        return flowOf(emptyList())
+        return repository.fetchMovies().map {
+            mapper.toMovieList(it.filter { it.vote > 4 })
+        }
     }
 
     override suspend fun refreshMovies(): Flow<List<MovieEntity>> {
