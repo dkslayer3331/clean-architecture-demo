@@ -8,6 +8,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
@@ -36,20 +38,22 @@ class MainActivity : AppCompatActivity() {
         movieListAdapter = MovieListAdapter()
 
         recyclerView.apply {
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = GridLayoutManager(context, 2)
             adapter = movieListAdapter
+            addItemDecoration(ItemDecoration(8))
         }
 
-        viewModel.movies.observe(this, Observer {
-            Log.d("movies",it.size.toString())
-            progressBar.visibility = View.GONE
-            movieListAdapter.submitList(it)
-        })
-
-        viewModel.errorMessage.observe(this, Observer {
-            if(it.isNotEmpty()) {
-                progressBar.visibility = View.GONE
-                this.showToast(it)
+        viewModel.viewState.observe(this, Observer {
+            when(it){
+               is Result.Success -> {
+                   progressBar.visibility = View.GONE
+                   movieListAdapter.submitList(it.data)
+               }
+               is Result.Error -> {
+                   progressBar.visibility = View.GONE
+                   showToast(it.message)
+               }
+                else -> Log.d("Loading","loading")
             }
         })
 
