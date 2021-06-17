@@ -12,26 +12,38 @@ import com.dazai.movieappwithcleanarch.R
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.showImage
 
-class MovieListAdapter : ListAdapter<MovieEntity, MovieViewHolder>(diffUtil) {
+class MovieListAdapter(private val onClick : (Int) -> Unit) : ListAdapter<MovieEntity, MovieViewHolder>(diffUtil) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(view, onClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.moviePoster.showImage(getItem(position).posterPath)
         holder.movieTitle.text = getItem(position).title
+        holder.movieId = getItem(position).id
     }
 }
 
-class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MovieViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+
+    var movieId = 0
+
     val movieTitle: TextView = itemView.findViewById(R.id.tvMovieTitle)
     val moviePoster: ImageView = itemView.findViewById(R.id.ivPoster)
+
+    init {
+        itemView.setOnClickListener {
+            onClick(movieId)
+        }
+    }
+
 }
 
 val diffUtil = object : DiffUtil.ItemCallback<MovieEntity>() {
-    override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity) = oldItem.equals(newItem)
+    override fun areItemsTheSame(oldItem: MovieEntity, newItem: MovieEntity) = oldItem == newItem
 
     override fun areContentsTheSame(oldItem: MovieEntity, newItem: MovieEntity) = oldItem.title == newItem.title
 

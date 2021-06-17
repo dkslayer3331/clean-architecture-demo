@@ -35,7 +35,10 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvMovies)
 
-        movieListAdapter = MovieListAdapter()
+        movieListAdapter = MovieListAdapter{
+            val intent = MovieDetailActivity.newIntent(this, it)
+            startActivity(intent)
+        }
 
         recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)

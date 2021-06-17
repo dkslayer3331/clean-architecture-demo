@@ -10,6 +10,7 @@ class MovieMapper @Inject constructor() : GenericMapper<MovieEntity, MovieVO>{
 
     override fun toEntity(model: MovieVO): MovieEntity {
         return MovieEntity(
+            id = model.id.toInt(),
             originalTitle = model.originalTitle,
             posterPath = model.posterPath.fullImageUrl(),
             title = model.title
