@@ -8,7 +8,9 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.dazai.movieappwithcleanarch.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MovieDetailActivity : AppCompatActivity() {
 
     private val detailViewModel : MovieDetailViewModel by viewModels()
@@ -16,18 +18,20 @@ class MovieDetailActivity : AppCompatActivity() {
     companion object{
         const val IE_MOVIE_ID = "movie_id"
         fun newIntent(context: Context, id : Int) : Intent {
-            return Intent(context, MovieDetailActivity::class.java).apply {
+            val intent =  Intent(context, MovieDetailActivity::class.java).apply {
                 putExtra(IE_MOVIE_ID, id)
             }
+            return intent
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_detail)
 
-        val movieId = intent.getIntExtra(MovieDetailActivity.IE_MOVIE_ID,0)
+        val movieId = intent.getIntExtra(IE_MOVIE_ID,0)
+
+        Log.d("movieId","$movieId")
 
         detailViewModel.getMovieDetail(movieId)
 

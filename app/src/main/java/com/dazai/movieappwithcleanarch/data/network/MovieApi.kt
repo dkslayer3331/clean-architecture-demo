@@ -7,10 +7,10 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MovieApi {
-    @GET("/movie/popular")
+    @GET("movie/popular")
     suspend fun getMovies(): MovieResponseVO
 
-    @GET("/movie/{Id}")
+    @GET("movie/{Id}")
     suspend fun getMovieDetail(@Path("Id") id : Int) : MovieDetailResponse
 
 }

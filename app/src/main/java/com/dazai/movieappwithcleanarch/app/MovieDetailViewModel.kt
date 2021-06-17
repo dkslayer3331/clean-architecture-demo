@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
 import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.produce
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-        private val movieUseCase: MovieUseCase
+    private val movieUseCase: MovieUseCase
 ) : ViewModel() {
     val viewState = MutableLiveData<Resource<MovieDetailEntity>>()
 
@@ -21,10 +22,10 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             viewState.value = Resource.Loading()
             movieUseCase.getMovieDetail(id).catch {
-                viewState.value = Resource.Error(it.localizedMessage)
+                viewState.postValue(Resource.Error(it.localizedMessage))
             }
             .collect {
-                viewState.value = Resource.Success(it)
+                viewState.postValue(Resource.Success(it))
             }
         }
     }

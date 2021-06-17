@@ -29,7 +29,7 @@ class MovieListAdapter(private val onClick : (Int) -> Unit) : ListAdapter<MovieE
 
 class MovieViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
 
-    var movieId = 0
+    var movieId = 0 // which could also be value object
 
     val movieTitle: TextView = itemView.findViewById(R.id.tvMovieTitle)
     val moviePoster: ImageView = itemView.findViewById(R.id.ivPoster)

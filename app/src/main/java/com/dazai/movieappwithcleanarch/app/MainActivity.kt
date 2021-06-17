@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rvMovies)
 
         movieListAdapter = MovieListAdapter{
-            val intent = MovieDetailActivity.newIntent(this, it)
+            val intent = MovieDetailActivity.newIntent(this, it).putExtra(MovieDetailActivity.IE_MOVIE_ID, it)
             startActivity(intent)
         }
 
@@ -48,13 +48,17 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.viewState.observe(this, Observer {
             when(it){
-               is Result.Success -> {
+               is Resource.Success -> {
                    progressBar.visibility = View.GONE
-                   movieListAdapter.submitList(it.data)
+                   it.data?.let {
+                       movieListAdapter.submitList(it)
+                   }
                }
-               is Result.Error -> {
+               is Resource.Error -> {
                    progressBar.visibility = View.GONE
-                   showToast(it.message)
+                   it.message?.let {
+                       showToast(it)
+                   }
                }
                 else -> Log.d("Loading","loading")
             }
