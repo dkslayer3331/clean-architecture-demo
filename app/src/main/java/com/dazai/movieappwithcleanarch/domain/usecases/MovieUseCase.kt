@@ -7,4 +7,5 @@ interface MovieUseCase {
     suspend fun getMovies() : Flow<List<MovieEntity>>
     suspend fun getHighRatedMovies() : Flow<List<MovieEntity>>
     suspend fun refreshMovies() : Flow<List<MovieEntity>>
+    suspend fun getMovieDetail(id : Int)
 }

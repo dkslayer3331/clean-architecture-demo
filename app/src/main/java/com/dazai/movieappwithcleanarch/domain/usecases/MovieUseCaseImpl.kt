@@ -29,4 +29,8 @@ class MovieUseCaseImpl @Inject constructor(
            mapper.toMovieList(it)
        }
     }
+
+    override suspend fun getMovieDetail(id: Int) {
+
+    }
 }
