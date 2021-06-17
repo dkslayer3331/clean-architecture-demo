@@ -3,8 +3,10 @@ package com.dazai.movieappwithcleanarch.data.repositories
 import android.util.Log
 import com.dazai.movieappwithcleanarch.data.db.AppDb
 import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
+import com.dazai.movieappwithcleanarch.data.models.MovieDetailResponse
 import com.dazai.movieappwithcleanarch.data.models.MovieVO
 import com.dazai.movieappwithcleanarch.data.network.MovieApi
+import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -23,6 +25,8 @@ class MovieRepositoryImpl @Inject constructor(
         db.movieDao().addMovies(api.getMovies().movies)
         return db.movieDao().getAllMovies()
     }
+
+    override suspend fun getMovieDetail(id: Int): Flow<MovieDetailResponse> = flowOf(api.getMovieDetail(id))
 
     private suspend fun getMoviesFromAvailableSource(): Flow<List<MovieVO>> {
         return db.movieDao().getAllMovies().flatMapLatest {
