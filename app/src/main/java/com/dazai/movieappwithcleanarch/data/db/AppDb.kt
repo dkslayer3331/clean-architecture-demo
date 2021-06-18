@@ -15,7 +15,7 @@ abstract class AppDb : RoomDatabase(){
 interface MovieDao{
 
     @Query("select * from movies")
-    fun getAllMovies() : List<MovieVO>
+    suspend fun getAllMovies() : List<MovieVO>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addMovies(movies : List<MovieVO>)
