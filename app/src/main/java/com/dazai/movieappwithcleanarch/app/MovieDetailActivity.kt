@@ -40,6 +40,9 @@ class MovieDetailActivity : AppCompatActivity() {
                     Log.d("MovieDetail","$it")
                 }
             }
+            else if(it is Resource.Error){
+                Log.d("DetailErr","${it.message ?: ""}")
+            }
         })
 
     }

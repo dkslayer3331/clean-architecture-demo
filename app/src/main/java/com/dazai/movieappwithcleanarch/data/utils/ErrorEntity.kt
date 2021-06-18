@@ -1,20 +1,19 @@
 package com.dazai.movieappwithcleanarch.data.utils
 
-import com.dazai.movieappwithcleanarch.app.utils.ERROR_MESSAGE_404
-import com.dazai.movieappwithcleanarch.app.utils.ERROR_MESSAGE_503
-import com.dazai.movieappwithcleanarch.app.utils.ERROR_MESSAGE_SERVICE_NOT_AVAILABLE
-import com.dazai.movieappwithcleanarch.app.utils.ERROR_MESSAGE_UNKNOWN
+import com.dazai.movieappwithcleanarch.app.utils.*
 
 sealed class ErrorEntity(
-     val message : String
+     var message : String
 ) {
 
     object ServiceUnavailable : ErrorEntity(ERROR_MESSAGE_SERVICE_NOT_AVAILABLE)
 
     object NotFound : ErrorEntity(ERROR_MESSAGE_404)
 
-    object Unknown : ErrorEntity(ERROR_MESSAGE_UNKNOWN)
+    data class Unknown(val localisedMessage : String) : ErrorEntity(localisedMessage)
 
     object ServerError : ErrorEntity(ERROR_MESSAGE_503)
+
+    object NO_CONNECTION : ErrorEntity(ERROR_MESSAGE_NO_INTERNET_CONNECTION)
 
 }

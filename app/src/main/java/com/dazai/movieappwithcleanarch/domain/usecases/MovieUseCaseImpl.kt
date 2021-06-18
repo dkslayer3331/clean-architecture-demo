@@ -1,14 +1,11 @@
 package com.dazai.movieappwithcleanarch.domain.usecases
 
-import android.util.Log
 import com.dazai.movieappwithcleanarch.app.Resource
 import com.dazai.movieappwithcleanarch.data.mappers.MovieDetailMapper
 import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
 import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 class MovieUseCaseImpl @Inject constructor(

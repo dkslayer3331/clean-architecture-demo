@@ -29,9 +29,9 @@ class MovieRepositoryImpl @Inject constructor(
 
     override suspend fun getMovieDetail(id: Int): Resource<MovieDetailResponse>{
         return try {
-            return Resource.Success(api.getMovieDetail(id))
+             Resource.Success(api.getMovieDetail(id))
         }catch (e : Exception){
-            Resource.Error(errorHandler.getError(e.cause!!).message)
+            Resource.Error(errorHandler.getError(e.fillInStackTrace()).message)
         }
     }
 
@@ -42,7 +42,7 @@ class MovieRepositoryImpl @Inject constructor(
             }
              Resource.Success(db.movieDao().getAllMovies())
         }catch (e : Exception){
-             Resource.Error(errorHandler.getError(e.cause!!).message)
+             Resource.Error(errorHandler.getError(e.fillInStackTrace()).message)
         }
     }
 

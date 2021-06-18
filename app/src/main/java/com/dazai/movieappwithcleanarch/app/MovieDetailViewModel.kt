@@ -23,11 +23,7 @@ class MovieDetailViewModel @Inject constructor(
     fun getMovieDetail(id : Int){
         viewModelScope.launch {
             _viewState.value = Resource.Loading()
-            try {
-                _viewState.value = movieUseCase.getMovieDetail(id)
-            }catch ( e : Exception){
-                _viewState.value = Resource.Error(e.localizedMessage)
-            }
+            _viewState.value = movieUseCase.getMovieDetail(id)
         }
     }
 
