@@ -1,9 +1,8 @@
 package com.dazai.movieappwithcleanarch.data.mappers
 
-import com.dazai.movieappwithcleanarch.data.models.MovieResponseVO
+import com.dazai.movieappwithcleanarch.app.utils.IMAGE_ENDPOINT
 import com.dazai.movieappwithcleanarch.data.models.MovieVO
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
-import com.dazai.movieappwithcleanarch.fullImageUrl
 import javax.inject.Inject
 
 class MovieMapper @Inject constructor() : GenericMapper<MovieEntity, MovieVO>{
@@ -12,7 +11,7 @@ class MovieMapper @Inject constructor() : GenericMapper<MovieEntity, MovieVO>{
         return MovieEntity(
             id = model.id.toInt(),
             originalTitle = model.originalTitle,
-            posterPath = model.posterPath.fullImageUrl(),
+            posterPath = "$IMAGE_ENDPOINT${model.posterPath}",
             title = model.title
         )
         }

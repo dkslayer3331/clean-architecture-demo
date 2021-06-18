@@ -12,7 +12,7 @@ class MovieDetailMapper @Inject constructor() : GenericMapper<MovieDetailEntity,
                 overview = model.overview,
                 voteAverage = model.voteAverage,
                 genres = model.genres,
-                posterPath = model.posterPath,
+                posterPath = model.posterPath, // could be different image endpoint
                 backDropPath = model.backdropPath
         )
     }

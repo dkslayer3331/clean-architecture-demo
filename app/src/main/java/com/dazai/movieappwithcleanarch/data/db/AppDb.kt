@@ -15,14 +15,12 @@ abstract class AppDb : RoomDatabase(){
 interface MovieDao{
 
     @Query("select * from movies")
-    fun getAllMovies() : Flow<List<MovieVO>>
+    fun getAllMovies() : List<MovieVO>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addMovies(movies : List<MovieVO>)
 
     @Query("delete from movies")
     suspend fun deleteAllMovies()
-
-    suspend fun getMoviesDistinctUntilChanged() = getAllMovies().distinctUntilChanged()
 
 }

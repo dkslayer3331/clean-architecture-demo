@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
 import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
-import com.dazai.movieappwithcleanarch.showImage
+import com.dazai.movieappwithcleanarch.app.utils.showImage
 
 class MovieListAdapter(private val onClick : (Int) -> Unit) : ListAdapter<MovieEntity, MovieViewHolder>(diffUtil) {
 
@@ -20,14 +20,14 @@ class MovieListAdapter(private val onClick : (Int) -> Unit) : ListAdapter<MovieE
         return MovieViewHolder(view, onClick)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.moviePoster.showImage(getItem(position).posterPath)
-        holder.movieTitle.text = getItem(position).title
-        holder.movieId = getItem(position).id
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = with(holder){
+        moviePoster.showImage(getItem(position).posterPath)
+        movieTitle.text = getItem(position).title
+        movieId = getItem(position).id
     }
 }
 
-class MovieViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+class MovieViewHolder(itemView: View, val onClick: (Int) -> Unit) : RecyclerView.ViewHolder(itemView){
 
     var movieId = 0 // which could also be value object
 

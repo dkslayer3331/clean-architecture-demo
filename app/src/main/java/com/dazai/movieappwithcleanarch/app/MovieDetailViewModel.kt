@@ -1,14 +1,12 @@
 package com.dazai.movieappwithcleanarch.app
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
 import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.channels.produce
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,16 +14,19 @@ import javax.inject.Inject
 class MovieDetailViewModel @Inject constructor(
     private val movieUseCase: MovieUseCase
 ) : ViewModel() {
-    val viewState = MutableLiveData<Resource<MovieDetailEntity>>()
+
+   private val _viewState = MutableLiveData<Resource<MovieDetailEntity>>()
+
+    val viewState : LiveData<Resource<MovieDetailEntity>>
+        get() = _viewState
 
     fun getMovieDetail(id : Int){
         viewModelScope.launch {
-            viewState.value = Resource.Loading()
-            movieUseCase.getMovieDetail(id).catch {
-                viewState.postValue(Resource.Error(it.localizedMessage))
-            }
-            .collect {
-                viewState.postValue(Resource.Success(it))
+            _viewState.value = Resource.Loading()
+            try {
+                _viewState.value = Resource.Success(movieUseCase.getMovieDetail(id))
+            }catch ( e : Exception){
+                _viewState.value = Resource.Error(e.localizedMessage)
             }
         }
     }

@@ -13,7 +13,7 @@ class TokenInterceptor @Inject constructor() : Interceptor {
         val originalHttpUrl: HttpUrl = original.url
 
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter("api_key", "a7fc563ba6989aec1e19d62d2d1985c9")
+            .addQueryParameter("api_key", "a7fc563ba6989aec1e19d62d2d1985c9") // todo : store in gradle
             .build()
 
         val requestBuilder: Request.Builder = original.newBuilder()

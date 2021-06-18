@@ -5,15 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
-import com.dazai.movieappwithcleanarch.showToast
+import com.dazai.movieappwithcleanarch.app.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,7 +18,12 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel : MainViewModel by viewModels()
 
-    lateinit var movieListAdapter: MovieListAdapter
+     private val movieListAdapter : MovieListAdapter by lazy{
+         MovieListAdapter{
+             val intent = MovieDetailActivity.newIntent(this, it).putExtra(MovieDetailActivity.IE_MOVIE_ID, it)
+             startActivity(intent)
+         }
+     }
 
     lateinit var progressBar: ProgressBar
 
@@ -35,11 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.rvMovies)
 
-        movieListAdapter = MovieListAdapter{
-            val intent = MovieDetailActivity.newIntent(this, it).putExtra(MovieDetailActivity.IE_MOVIE_ID, it)
-            startActivity(intent)
-        }
-
         recyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = movieListAdapter
@@ -50,15 +47,11 @@ class MainActivity : AppCompatActivity() {
             when(it){
                is Resource.Success -> {
                    progressBar.visibility = View.GONE
-                   it.data?.let {
-                       movieListAdapter.submitList(it)
-                   }
+                   movieListAdapter.submitList(it?.data ?: emptyList())
                }
                is Resource.Error -> {
                    progressBar.visibility = View.GONE
-                   it.message?.let {
-                       showToast(it)
-                   }
+                   showToast(it?.message ?: return@Observer)
                }
                 else -> Log.d("Loading","loading")
             }

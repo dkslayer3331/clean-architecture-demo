@@ -7,7 +7,7 @@ import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
 import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
-   suspend fun fetchMovies() : Flow<List<MovieVO>>
-   suspend fun refreshMovies() : Flow<List<MovieVO>>
-   suspend fun getMovieDetail(id : Int) : Flow<MovieDetailResponse>
+   suspend fun fetchMovies() : List<MovieVO>
+   suspend fun refreshMovies() : List<MovieVO>
+   suspend fun getMovieDetail(id : Int) : MovieDetailResponse
 }

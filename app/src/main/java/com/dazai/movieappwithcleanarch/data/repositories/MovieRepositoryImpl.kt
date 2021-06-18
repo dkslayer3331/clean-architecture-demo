@@ -16,26 +16,25 @@ class MovieRepositoryImpl @Inject constructor(
         private val api: MovieApi, private val db: AppDb
 ) : MovieRepository {
 
-    override suspend fun fetchMovies(): Flow<List<MovieVO>> {
+    override suspend fun fetchMovies(): List<MovieVO> {
         return getMoviesFromAvailableSource()
     }
 
-    override suspend fun refreshMovies(): Flow<List<MovieVO>> {
+    override suspend fun refreshMovies(): List<MovieVO> {
         db.movieDao().deleteAllMovies()
         db.movieDao().addMovies(api.getMovies().movies)
         return db.movieDao().getAllMovies()
     }
 
-    override suspend fun getMovieDetail(id: Int): Flow<MovieDetailResponse> = flowOf(api.getMovieDetail(id))
+    override suspend fun getMovieDetail(id: Int): MovieDetailResponse = api.getMovieDetail(id)
 
-    private suspend fun getMoviesFromAvailableSource(): Flow<List<MovieVO>> {
-        return db.movieDao().getAllMovies().flatMapLatest {
-            if(it.isEmpty()){
-                db.movieDao().deleteAllMovies()
-                db.movieDao().addMovies(api.getMovies().movies)
-            }
-            return@flatMapLatest db.movieDao().getAllMovies()
+    private suspend fun getMoviesFromAvailableSource(): List<MovieVO> {
+
+        if(db.movieDao().getAllMovies().isEmpty()){
+            db.movieDao().addMovies(api.getMovies().movies)
         }
+
+        return db.movieDao().getAllMovies()
     }
 
 }

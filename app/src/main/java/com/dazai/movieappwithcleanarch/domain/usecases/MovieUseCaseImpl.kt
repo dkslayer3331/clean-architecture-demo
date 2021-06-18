@@ -15,27 +15,19 @@ class MovieUseCaseImpl @Inject constructor(
         private val mapper: MovieMapper,
         private val movieDetailMapper : MovieDetailMapper
 ) : MovieUseCase {
-    override suspend fun getMovies(): Flow<List<MovieEntity>> {
-        return repository.fetchMovies().map{
-            mapper.toMovieList(it)
-        }
+    override suspend fun getMovies(): List<MovieEntity> {
+        return mapper.toMovieList(repository.fetchMovies())
     }
 
-    override suspend fun getHighRatedMovies(): Flow<List<MovieEntity>> {
-        return repository.fetchMovies().map {
-            mapper.toMovieList(it.filter { it.vote > 4 })
-        }
+    override suspend fun getHighRatedMovies(): List<MovieEntity> {
+        return mapper.toMovieList(repository.fetchMovies().filter { it.vote > 4 })
     }
 
-    override suspend fun refreshMovies(): Flow<List<MovieEntity>> {
-       return repository.refreshMovies().map {
-           mapper.toMovieList(it)
-       }
+    override suspend fun refreshMovies(): List<MovieEntity> {
+       return mapper.toMovieList(repository.refreshMovies())
     }
 
-    override suspend fun getMovieDetail(id: Int): Flow<MovieDetailEntity> {
-       return repository.getMovieDetail(id).map {
-           movieDetailMapper.toEntity(it)
-       }
+    override suspend fun getMovieDetail(id: Int): MovieDetailEntity {
+       return movieDetailMapper.toEntity(repository.getMovieDetail(id))
     }
 }

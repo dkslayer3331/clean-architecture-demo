@@ -18,10 +18,9 @@ class MovieDetailActivity : AppCompatActivity() {
     companion object{
         const val IE_MOVIE_ID = "movie_id"
         fun newIntent(context: Context, id : Int) : Intent {
-            val intent =  Intent(context, MovieDetailActivity::class.java).apply {
+           return Intent(context, MovieDetailActivity::class.java).apply {
                 putExtra(IE_MOVIE_ID, id)
             }
-            return intent
         }
     }
 

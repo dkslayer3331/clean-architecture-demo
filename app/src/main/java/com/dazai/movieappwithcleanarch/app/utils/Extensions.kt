@@ -1,12 +1,9 @@
-package com.dazai.movieappwithcleanarch
+package com.dazai.movieappwithcleanarch.app.utils
 
-import android.content.Context
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-
-fun String.fullImageUrl() = "https://image.tmdb.org/t/p/original/$this"
 
 fun ImageView.showImage(url : String) = Glide.with(this.context).load(url).into(this)
 

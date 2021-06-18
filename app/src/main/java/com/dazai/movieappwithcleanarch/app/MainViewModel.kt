@@ -15,7 +15,10 @@ class MainViewModel @Inject constructor(
         private val useCase: MovieUseCase
 ) : ViewModel() {
 
-    val viewState = MutableLiveData<Resource<List<MovieEntity>>>()
+   private val _viewState = MutableLiveData<Resource<List<MovieEntity>>>()
+
+    val viewState : LiveData<Resource<List<MovieEntity>>>
+        get() = _viewState
 
     init {
         showMovies()
@@ -23,13 +26,11 @@ class MainViewModel @Inject constructor(
 
     private fun showMovies() {
         viewModelScope.launch {
-            viewState.postValue(Resource.Loading())
-            useCase.getMovies().catch {
-                Log.d("ViewModelError",it.localizedMessage)
-                viewState.postValue(Resource.Error(it.localizedMessage))
-            }.collect {
-                Log.d("ViewModelMovies",it.size.toString())
-                viewState.postValue(Resource.Success(it))
+            _viewState.value = Resource.Loading()
+            try {
+                _viewState.value = Resource.Success(useCase.getMovies())
+            }catch (e : Exception){
+                _viewState.value = Resource.Error(e.localizedMessage)
             }
         }
     }
