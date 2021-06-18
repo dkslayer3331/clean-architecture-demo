@@ -1,6 +1,7 @@
 package com.dazai.movieappwithcleanarch.domain.usecases
 
 import android.util.Log
+import com.dazai.movieappwithcleanarch.app.Resource
 import com.dazai.movieappwithcleanarch.data.mappers.MovieDetailMapper
 import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
 import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
@@ -15,19 +16,25 @@ class MovieUseCaseImpl @Inject constructor(
         private val mapper: MovieMapper,
         private val movieDetailMapper : MovieDetailMapper
 ) : MovieUseCase {
-    override suspend fun getMovies(): List<MovieEntity> {
-        return mapper.toMovieList(repository.fetchMovies())
+    override suspend fun getMovies(): Resource<List<MovieEntity>> {
+       return repository.fetchMovies().data?.let {
+            Resource.Success(mapper.toMovieList(it))
+        } ?: Resource.Error(repository.fetchMovies().message ?: "")
     }
 
-    override suspend fun getHighRatedMovies(): List<MovieEntity> {
-        return mapper.toMovieList(repository.fetchMovies().filter { it.vote > 4 })
+    override suspend fun getHighRatedMovies(): Resource<List<MovieEntity>> {
+        return getMovies()
     }
 
-    override suspend fun refreshMovies(): List<MovieEntity> {
-       return mapper.toMovieList(repository.refreshMovies())
+    override suspend fun refreshMovies(): Resource<List<MovieEntity>> {
+       return repository.refreshMovies().data?.let {
+          Resource.Success(mapper.toMovieList(it))
+       } ?: Resource.Error(repository.refreshMovies().message ?: "")
     }
 
-    override suspend fun getMovieDetail(id: Int): MovieDetailEntity {
-       return movieDetailMapper.toEntity(repository.getMovieDetail(id))
+    override suspend fun getMovieDetail(id: Int): Resource<MovieDetailEntity> {
+       return repository.getMovieDetail(id).data?.let {
+           Resource.Success(movieDetailMapper.toEntity(it))
+       } ?: Resource.Error(repository.getMovieDetail(id).message ?: "")
     }
 }

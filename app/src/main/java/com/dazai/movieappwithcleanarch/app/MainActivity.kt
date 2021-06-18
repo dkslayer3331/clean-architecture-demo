@@ -47,11 +47,11 @@ class MainActivity : AppCompatActivity() {
             when(it){
                is Resource.Success -> {
                    progressBar.visibility = View.GONE
-                   movieListAdapter.submitList(it?.data ?: emptyList())
+                   movieListAdapter.submitList(it.data)
                }
                is Resource.Error -> {
                    progressBar.visibility = View.GONE
-                   showToast(it?.message ?: return@Observer)
+                   showToast(it.message ?: return@Observer)
                }
                 else -> Log.d("Loading","loading")
             }

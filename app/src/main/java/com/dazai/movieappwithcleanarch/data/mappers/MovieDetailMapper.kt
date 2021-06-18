@@ -5,15 +5,15 @@ import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
 import javax.inject.Inject
 
 class MovieDetailMapper @Inject constructor() : GenericMapper<MovieDetailEntity, MovieDetailResponse> {
-    override fun toEntity(model: MovieDetailResponse): MovieDetailEntity {
+    override fun toEntity(model: MovieDetailResponse): MovieDetailEntity = with(model) {
         return MovieDetailEntity(
-                id = model.id,
-                title = model.title,
-                overview = model.overview,
-                voteAverage = model.voteAverage,
-                genres = model.genres,
-                posterPath = model.posterPath, // could be different image endpoint
-                backDropPath = model.backdropPath
+                id = id,
+                title = title,
+                overview = overview,
+                voteAverage = voteAverage,
+                genres = genres,
+                posterPath = posterPath, // could be different image endpoint
+                backDropPath = backdropPath
         )
     }
 

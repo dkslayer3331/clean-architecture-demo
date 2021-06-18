@@ -7,12 +7,12 @@ import javax.inject.Inject
 
 class MovieMapper @Inject constructor() : GenericMapper<MovieEntity, MovieVO>{
 
-    override fun toEntity(model: MovieVO): MovieEntity {
+    override fun toEntity(model: MovieVO): MovieEntity = with(model) {
         return MovieEntity(
-            id = model.id.toInt(),
-            originalTitle = model.originalTitle,
-            posterPath = "$IMAGE_ENDPOINT${model.posterPath}",
-            title = model.title
+            id = id.toInt(),
+            originalTitle = originalTitle,
+            posterPath = "$IMAGE_ENDPOINT${posterPath}",
+            title = title
         )
         }
 

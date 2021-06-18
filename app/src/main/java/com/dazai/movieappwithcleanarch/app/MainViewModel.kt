@@ -27,11 +27,7 @@ class MainViewModel @Inject constructor(
     private fun showMovies() {
         viewModelScope.launch {
             _viewState.value = Resource.Loading()
-            try {
-                _viewState.value = Resource.Success(useCase.getMovies())
-            }catch (e : Exception){
-                _viewState.value = Resource.Error(e.localizedMessage)
-            }
+            _viewState.value = useCase.getMovies()
         }
     }
 

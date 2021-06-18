@@ -1,41 +1,49 @@
 package com.dazai.movieappwithcleanarch.data.repositories
 
-import android.util.Log
+import com.dazai.movieappwithcleanarch.app.Resource
 import com.dazai.movieappwithcleanarch.data.db.AppDb
-import com.dazai.movieappwithcleanarch.data.mappers.MovieMapper
 import com.dazai.movieappwithcleanarch.data.models.MovieDetailResponse
 import com.dazai.movieappwithcleanarch.data.models.MovieVO
 import com.dazai.movieappwithcleanarch.data.network.MovieApi
-import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
+import com.dazai.movieappwithcleanarch.domain.ErrorHandler
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieRepositoryImpl @Inject constructor(
-        private val api: MovieApi, private val db: AppDb
+        private val api: MovieApi, private val db: AppDb, private val errorHandler: ErrorHandler
 ) : MovieRepository {
 
-    override suspend fun fetchMovies(): List<MovieVO> {
+    override suspend fun fetchMovies(): Resource<List<MovieVO>> {
         return getMoviesFromAvailableSource()
     }
 
-    override suspend fun refreshMovies(): List<MovieVO> {
-        db.movieDao().deleteAllMovies()
-        db.movieDao().addMovies(api.getMovies().movies)
-        return db.movieDao().getAllMovies()
+    override suspend fun refreshMovies(): Resource<List<MovieVO>> {
+        return try {
+            db.movieDao().deleteAllMovies()
+            db.movieDao().addMovies(api.getMovies().movies)
+            Resource.Success(db.movieDao().getAllMovies())
+        } catch (e: Exception) {
+            Resource.Error(errorHandler.getError(e.cause!!).message)
+        }
     }
 
-    override suspend fun getMovieDetail(id: Int): MovieDetailResponse = api.getMovieDetail(id)
-
-    private suspend fun getMoviesFromAvailableSource(): List<MovieVO> {
-
-        if(db.movieDao().getAllMovies().isEmpty()){
-            db.movieDao().addMovies(api.getMovies().movies)
+    override suspend fun getMovieDetail(id: Int): Resource<MovieDetailResponse>{
+        return try {
+            return Resource.Success(api.getMovieDetail(id))
+        }catch (e : Exception){
+            Resource.Error(errorHandler.getError(e.cause!!).message)
         }
+    }
 
-        return db.movieDao().getAllMovies()
+    private suspend fun getMoviesFromAvailableSource(): Resource<List<MovieVO>> {
+        return try{
+            if (db.movieDao().getAllMovies().isEmpty()) {
+                db.movieDao().addMovies(api.getMovies().movies)
+            }
+             Resource.Success(db.movieDao().getAllMovies())
+        }catch (e : Exception){
+             Resource.Error(errorHandler.getError(e.cause!!).message)
+        }
     }
 
 }
