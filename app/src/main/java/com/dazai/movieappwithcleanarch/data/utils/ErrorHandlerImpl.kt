@@ -1,6 +1,5 @@
 package com.dazai.movieappwithcleanarch.data.utils
 
-import android.util.Log
 import com.dazai.movieappwithcleanarch.domain.ErrorHandler
 import retrofit2.HttpException
 import java.net.HttpURLConnection
@@ -10,7 +9,7 @@ import javax.inject.Inject
 class ErrorHandlerImpl @Inject constructor() : ErrorHandler {
     override fun getError(throwable: Throwable): ErrorEntity {
         return when (throwable){
-            is UnknownHostException -> ErrorEntity.NO_CONNECTION
+            is UnknownHostException -> ErrorEntity.NoConnection
             is HttpException -> {
                 when (throwable.code()) {
                     HttpURLConnection.HTTP_NOT_FOUND -> ErrorEntity.NotFound

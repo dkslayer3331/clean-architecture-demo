@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                    progressBar.visibility = View.GONE
                    showToast(it.message ?: return@Observer)
                }
-                else -> Log.d("Loading","loading")
+                else -> progressBar.visibility = View.VISIBLE
             }
         })
 
