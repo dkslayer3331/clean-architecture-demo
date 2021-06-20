@@ -8,5 +8,5 @@ interface MovieUseCase {
     suspend fun getMovies() : Resource<List<MovieEntity>>
     suspend fun getHighRatedMovies() : Resource<List<MovieEntity>>
     suspend fun refreshMovies() : Resource<List<MovieEntity>>
-    suspend fun getMovieDetail(id : Int) : Resource<MovieDetailEntity>
+    suspend fun getMovieDetail(id : Int) : Resource<MovieEntity>
 }

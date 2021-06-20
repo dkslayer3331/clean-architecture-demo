@@ -31,8 +31,6 @@ class MovieDetailActivity : AppCompatActivity() {
 
         val movieId = intent.getIntExtra(IE_MOVIE_ID,0)
 
-       // Log.d("movieId","$movieId")
-
         detailViewModel.getMovieDetail(movieId)
 
         detailViewModel.viewState.observe(this, Observer {

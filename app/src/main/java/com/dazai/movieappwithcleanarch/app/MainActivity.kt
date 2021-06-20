@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
      private val movieListAdapter : MovieListAdapter by lazy{
          MovieListAdapter{
-             val intent = MovieDetailActivity.newIntent(this, it).putExtra(MovieDetailActivity.IE_MOVIE_ID, it)
+             val intent = MovieDetailActivity.newIntent(this, it)
              startActivity(intent)
          }
      }
