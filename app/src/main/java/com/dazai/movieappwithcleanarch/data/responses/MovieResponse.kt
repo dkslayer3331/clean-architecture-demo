@@ -1,11 +1,11 @@
-package com.dazai.movieappwithcleanarch.data.models
+package com.dazai.movieappwithcleanarch.data.responses
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "movies")
-data class MovieVO(
+data class MovieResponse(
     @PrimaryKey
     @SerializedName("id")
     val id : Long,

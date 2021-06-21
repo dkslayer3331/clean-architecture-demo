@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.app
+package com.dazai.movieappwithcleanarch.ui.utils
 
 sealed class Resource<out T>(
     val data: T? = null,

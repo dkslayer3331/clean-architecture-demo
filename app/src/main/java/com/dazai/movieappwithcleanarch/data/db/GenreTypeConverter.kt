@@ -1,7 +1,7 @@
 package com.dazai.movieappwithcleanarch.data.db
 
 import androidx.room.TypeConverter
-import com.dazai.movieappwithcleanarch.data.models.Genre
+import com.dazai.movieappwithcleanarch.data.responses.Genre
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 

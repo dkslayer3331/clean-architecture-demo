@@ -1,8 +1,8 @@
 package com.dazai.movieappwithcleanarch.domain.entities
 
-import com.dazai.movieappwithcleanarch.data.models.Genre
+import com.dazai.movieappwithcleanarch.data.responses.Genre
 
-data class MovieEntity(
+data class Movie(
         val id: Int,
         val originalTitle: String,
         val posterPath: String,

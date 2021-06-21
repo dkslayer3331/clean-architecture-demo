@@ -4,13 +4,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.dazai.movieappwithcleanarch.data.db.GenreTypeConverter
-import com.dazai.movieappwithcleanarch.data.models.Genre
+import com.dazai.movieappwithcleanarch.data.responses.Genre
 import org.jetbrains.annotations.Nullable
 
 //  database entity
 @Entity(tableName = "movie")
 @TypeConverters(GenreTypeConverter::class)
-data class DbMovieEntity(
+data class MovieEntity(
         @PrimaryKey
         val id : Int,
         @Nullable

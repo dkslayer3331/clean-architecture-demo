@@ -1,7 +1,7 @@
 package com.dazai.movieappwithcleanarch.data.di
 
 import com.dazai.movieappwithcleanarch.data.network.MovieApi
-import com.dazai.movieappwithcleanarch.data.network.TokenInterceptor
+import com.dazai.movieappwithcleanarch.data.utils.TokenInterceptor
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides

@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.data.network
+package com.dazai.movieappwithcleanarch.data.utils
 
 import okhttp3.HttpUrl
 import okhttp3.Interceptor

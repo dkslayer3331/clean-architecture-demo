@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.app
+package com.dazai.movieappwithcleanarch.ui.utils
 
 import android.graphics.Rect
 import android.view.View

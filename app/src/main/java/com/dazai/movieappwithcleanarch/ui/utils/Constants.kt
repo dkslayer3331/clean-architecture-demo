@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.app.utils
+package com.dazai.movieappwithcleanarch.ui.utils
 
 const val IMAGE_ENDPOINT = "https://image.tmdb.org/t/p/original/"
 

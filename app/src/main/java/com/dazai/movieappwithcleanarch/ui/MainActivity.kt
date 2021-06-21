@@ -1,8 +1,7 @@
-package com.dazai.movieappwithcleanarch.app
+package com.dazai.movieappwithcleanarch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
@@ -10,7 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
-import com.dazai.movieappwithcleanarch.app.utils.showToast
+import com.dazai.movieappwithcleanarch.ui.utils.ItemDecoration
+import com.dazai.movieappwithcleanarch.ui.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,18 +43,18 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(ItemDecoration(8))
         }
 
-        viewModel.viewState.observe(this, Observer {
-            when(it){
-               is Resource.Success -> {
-                   progressBar.visibility = View.GONE
-                   movieListAdapter.submitList(it.data)
-               }
-               is Resource.Error -> {
-                   progressBar.visibility = View.GONE
-                   showToast(it.message ?: return@Observer)
-               }
-                else -> progressBar.visibility = View.VISIBLE
-            }
+        viewModel.showErrorEvent.observe(this, Observer {
+            progressBar.visibility = View.GONE
+            showToast(it)
+        })
+
+        viewModel.showLoadingEvent.observe(this, Observer {
+            progressBar.visibility = View.VISIBLE
+        })
+
+        viewModel.showMoviesEvent.observe(this, Observer {
+            progressBar.visibility = View.GONE
+            movieListAdapter.submitList(it)
         })
 
     }

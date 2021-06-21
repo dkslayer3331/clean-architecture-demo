@@ -1,6 +1,6 @@
 package com.dazai.movieappwithcleanarch.data.utils
 
-import com.dazai.movieappwithcleanarch.app.utils.*
+import com.dazai.movieappwithcleanarch.ui.utils.*
 
 sealed class ErrorEntity(var message: String) {
 

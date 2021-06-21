@@ -1,15 +1,10 @@
 package com.dazai.movieappwithcleanarch.domain.repositories
 
-import com.dazai.movieappwithcleanarch.app.Resource
-import com.dazai.movieappwithcleanarch.data.entities.DbMovieEntity
-import com.dazai.movieappwithcleanarch.data.models.MovieDetailResponse
-import com.dazai.movieappwithcleanarch.data.models.MovieVO
-import com.dazai.movieappwithcleanarch.domain.entities.MovieDetailEntity
-import com.dazai.movieappwithcleanarch.domain.entities.MovieEntity
-import kotlinx.coroutines.flow.Flow
+import com.dazai.movieappwithcleanarch.ui.utils.Resource
+import com.dazai.movieappwithcleanarch.data.entities.MovieEntity
 
 interface MovieRepository {
-   suspend fun fetchMovies() : Resource<List<DbMovieEntity>>
-   suspend fun refreshMovies() : Resource<List<DbMovieEntity>>
-   suspend fun getMovieDetail(id : Int) : Resource<DbMovieEntity>
+   suspend fun fetchMovies() : Resource<List<MovieEntity>>
+   suspend fun refreshMovies() : Resource<List<MovieEntity>>
+   suspend fun getMovieDetail(id : Int) : Resource<MovieEntity>
 }

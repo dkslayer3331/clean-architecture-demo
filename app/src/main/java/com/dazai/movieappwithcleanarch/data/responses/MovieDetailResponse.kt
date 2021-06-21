@@ -1,6 +1,5 @@
-package com.dazai.movieappwithcleanarch.data.models
+package com.dazai.movieappwithcleanarch.data.responses
 
-import androidx.annotation.Nullable
 import androidx.room.Entity
 import androidx.room.TypeConverters
 import com.dazai.movieappwithcleanarch.data.db.GenreTypeConverter

@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.app
+package com.dazai.movieappwithcleanarch.ui
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.dazai.movieappwithcleanarch.R
-import com.dazai.movieappwithcleanarch.app.utils.showToast
+import com.dazai.movieappwithcleanarch.ui.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,15 +33,12 @@ class MovieDetailActivity : AppCompatActivity() {
 
         detailViewModel.getMovieDetail(movieId)
 
-        detailViewModel.viewState.observe(this, Observer {
-            if(it is Resource.Success){
-                it.data?.let {
-                    Log.d("MovieDetail","$it")
-                }
-            }
-            else if(it is Resource.Error){
-                showToast(it.message ?: return@Observer)
-            }
+        detailViewModel.errorEvent.observe(this, Observer {
+            showToast(it)
+        })
+
+        detailViewModel.successEvent.observe(this, Observer {
+            Log.d("detail","$it")
         })
 
     }

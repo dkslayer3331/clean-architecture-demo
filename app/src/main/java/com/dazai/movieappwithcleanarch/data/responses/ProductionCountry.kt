@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.data.models
+package com.dazai.movieappwithcleanarch.data.responses
 
 
 import com.google.gson.annotations.SerializedName
