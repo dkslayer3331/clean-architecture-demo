@@ -3,11 +3,9 @@ package com.dazai.movieappwithcleanarch.data.responses
 
 import com.google.gson.annotations.SerializedName
 
-data class SpokenLanguage(
-    @SerializedName("english_name")
-    val englishName: String,
-    @SerializedName("iso_639_1")
-    val iso6391: String,
+data class GenreResponse(
+    @SerializedName("id")
+    val id: Int,
     @SerializedName("name")
     val name: String
 )

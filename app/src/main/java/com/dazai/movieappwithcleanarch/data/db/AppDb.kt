@@ -12,18 +12,18 @@ abstract class AppDb : RoomDatabase(){
 interface MovieDao{
 
     @Query("select id, title, originalTitle, posterPath, voteAverage  from movie")
-    suspend fun getAllMovies() : List<com.dazai.movieappwithcleanarch.data.entities.MovieEntity>
+    suspend fun getAllMovies() : List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addMovies(movies : List<com.dazai.movieappwithcleanarch.data.entities.MovieEntity>)
+    suspend fun addMovies(movies : List<MovieEntity>)
 
     @Query("delete from movie")
     suspend fun deleteAllMovies()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateDetail(movie : com.dazai.movieappwithcleanarch.data.entities.MovieEntity)
+    suspend fun updateDetail(movie : MovieEntity)
 
     @Query("select * from movie where id = :movieId")
-    suspend fun getMovieDetail(movieId : Int) : com.dazai.movieappwithcleanarch.data.entities.MovieEntity
+    suspend fun getMovieDetail(movieId : Int) : MovieEntity
 
 }

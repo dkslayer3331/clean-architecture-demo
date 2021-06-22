@@ -3,13 +3,13 @@ package com.dazai.movieappwithcleanarch.data.responses
 
 import com.google.gson.annotations.SerializedName
 
-data class BelongsToCollection(
-    @SerializedName("backdrop_path")
-    val backdropPath: Any?,
+data class ProductionCompanyResponse(
     @SerializedName("id")
     val id: Int,
+    @SerializedName("logo_path")
+    val logoPath: String,
     @SerializedName("name")
     val name: String,
-    @SerializedName("poster_path")
-    val posterPath: Any?
+    @SerializedName("origin_country")
+    val originCountry: String
 )

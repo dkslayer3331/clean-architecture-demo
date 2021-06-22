@@ -1,6 +1,6 @@
 package com.dazai.movieappwithcleanarch.domain.entities
 
-import com.dazai.movieappwithcleanarch.data.responses.Genre
+import com.dazai.movieappwithcleanarch.data.responses.GenreResponse
 
 data class Movie(
         val id: Int,
@@ -8,6 +8,6 @@ data class Movie(
         val posterPath: String,
         val title: String,
         val overview: String = "",
-        val genres: List<Genre> = emptyList(),
+        val genres: List<GenreResponse> = emptyList(),
         val voteAverage: Float = 0F
 )

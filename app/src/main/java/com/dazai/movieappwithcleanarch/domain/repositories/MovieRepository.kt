@@ -1,10 +1,9 @@
 package com.dazai.movieappwithcleanarch.domain.repositories
 
-import com.dazai.movieappwithcleanarch.ui.utils.Resource
-import com.dazai.movieappwithcleanarch.data.entities.MovieEntity
+import com.dazai.movieappwithcleanarch.domain.entities.Movie
 
 interface MovieRepository {
-   suspend fun fetchMovies() : Resource<List<MovieEntity>>
-   suspend fun refreshMovies() : Resource<List<MovieEntity>>
-   suspend fun getMovieDetail(id : Int) : Resource<MovieEntity>
+   suspend fun fetchMovies() : List<Movie>
+   suspend fun refreshMovies() : List<Movie>
+   suspend fun getMovieDetail(id : Int) : Movie
 }
