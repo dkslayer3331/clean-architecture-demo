@@ -16,7 +16,7 @@ data class MovieEntity(
         @Nullable
         val backDropPath : String? = "",
         @Nullable
-        val genres : List<GenreResponse>? = emptyList(),
+        val genres : List<GenreResponse> = emptyList(),
         val originalTitle : String,
         val title : String,
         @Nullable

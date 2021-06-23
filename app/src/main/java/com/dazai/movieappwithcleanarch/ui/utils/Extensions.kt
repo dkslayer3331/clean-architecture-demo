@@ -26,7 +26,7 @@ fun MovieResponse.toEntity() = with(this) {
 
 //  response to db entity
 fun MovieResponse.toDbEntity() = with(this) {
-    com.dazai.movieappwithcleanarch.data.entities.MovieEntity(
+    MovieEntity(
             id = id.toInt(),
             title = title,
             originalTitle = originalTitle,
@@ -36,7 +36,7 @@ fun MovieResponse.toDbEntity() = with(this) {
 }
 
 fun MovieDetailResponse.toDbEntity() = with(this){
-    com.dazai.movieappwithcleanarch.data.entities.MovieEntity(
+    MovieEntity(
             id = id,
             title = title,
             originalTitle = originalTitle,
@@ -51,7 +51,7 @@ fun MovieDetailResponse.toDbEntity() = with(this){
 // db entity to usecase entity
 fun MovieEntity.toUseCaseEntity() = with(this){
     Movie(
-      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "", genres ?: emptyList(), voteAverage
+      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "", genres.joinToString(), voteAverage
     )
 }
 
