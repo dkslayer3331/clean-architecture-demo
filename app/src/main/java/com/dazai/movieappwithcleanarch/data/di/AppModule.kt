@@ -4,8 +4,7 @@ import com.dazai.movieappwithcleanarch.data.repositories.MovieRepositoryImpl
 import com.dazai.movieappwithcleanarch.domain.ErrorHandler
 import com.dazai.movieappwithcleanarch.data.utils.ErrorHandlerImpl
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
-import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCase
-import com.dazai.movieappwithcleanarch.domain.usecases.MovieUseCaseImpl
+import com.dazai.movieappwithcleanarch.domain.usecases.*
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -19,9 +18,12 @@ abstract class AppModule {
     abstract fun bindMovieRepository(impl: MovieRepositoryImpl): MovieRepository
 
     @Binds
-    abstract fun bindMovieUseCase(impl : MovieUseCaseImpl) : MovieUseCase
+    abstract fun bindErrorHandler(impl : ErrorHandlerImpl) : ErrorHandler
 
     @Binds
-    abstract fun bindErrorHandler(impl : ErrorHandlerImpl) : ErrorHandler
+    abstract fun bindGetMovieListUseCase(impl : GetMovieListUseCaseImpl) : GetMovieListUseCase
+
+    @Binds
+    abstract fun bindGetMovieDetailUseCase(impl : GetMovieDetailUseCaseImpl) : GetMovieDetailUseCase
 
 }

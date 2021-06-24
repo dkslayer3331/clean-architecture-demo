@@ -1,11 +1,9 @@
 package com.dazai.movieappwithcleanarch.data.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
+import androidx.annotation.Nullable
+import androidx.room.*
 import com.dazai.movieappwithcleanarch.data.db.GenreTypeConverter
 import com.dazai.movieappwithcleanarch.data.responses.GenreResponse
-import org.jetbrains.annotations.Nullable
 
 //  database entity
 @Entity(tableName = "movie")
@@ -16,7 +14,7 @@ data class MovieEntity(
         @Nullable
         val backDropPath : String? = "",
         @Nullable
-        val genres : List<GenreResponse> = emptyList(),
+        val genres : List<GenreResponse>? = emptyList(),
         val originalTitle : String,
         val title : String,
         @Nullable

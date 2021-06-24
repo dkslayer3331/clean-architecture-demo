@@ -51,7 +51,7 @@ fun MovieDetailResponse.toDbEntity() = with(this){
 // db entity to usecase entity
 fun MovieEntity.toUseCaseEntity() = with(this){
     Movie(
-      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "", genres.joinToString(), voteAverage
+      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "", genres?.joinToString() ?: "", voteAverage
     )
 }
 
