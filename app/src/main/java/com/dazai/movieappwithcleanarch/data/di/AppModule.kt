@@ -26,4 +26,7 @@ abstract class AppModule {
     @Binds
     abstract fun bindGetMovieDetailUseCase(impl : GetMovieDetailUseCaseImpl) : GetMovieDetailUseCase
 
+    @Binds
+    abstract fun bindErrorUseCase(impl : ErrorUseCaseImpl) : ErrorUseCase
+
 }

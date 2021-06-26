@@ -1,4 +1,4 @@
-package com.dazai.movieappwithcleanarch.domain.entities
+package com.dazai.movieappwithcleanarch.domain.model
 
 data class Movie(
         val id: Int,

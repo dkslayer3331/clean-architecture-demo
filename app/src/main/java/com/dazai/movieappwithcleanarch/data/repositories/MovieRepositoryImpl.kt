@@ -1,12 +1,10 @@
 package com.dazai.movieappwithcleanarch.data.repositories
 
-import com.dazai.movieappwithcleanarch.ui.utils.Resource
 import com.dazai.movieappwithcleanarch.ui.utils.toDbEntity
 import com.dazai.movieappwithcleanarch.data.db.AppDb
-import com.dazai.movieappwithcleanarch.data.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.data.network.MovieApi
 import com.dazai.movieappwithcleanarch.domain.ErrorHandler
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 import com.dazai.movieappwithcleanarch.domain.repositories.MovieRepository
 import com.dazai.movieappwithcleanarch.ui.utils.toUseCaseEntity
 import javax.inject.Inject

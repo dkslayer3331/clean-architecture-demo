@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.dazai.movieappwithcleanarch.data.entities.MovieEntity
 import com.dazai.movieappwithcleanarch.data.responses.MovieDetailResponse
 import com.dazai.movieappwithcleanarch.data.responses.MovieResponse
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 
 fun ImageView.showImage(url: String) = Glide.with(this.context).load(url).into(this)
 

@@ -1,6 +1,6 @@
 package com.dazai.movieappwithcleanarch.domain.repositories
 
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 
 interface MovieRepository {
    suspend fun fetchMovies() : List<Movie>

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 import com.dazai.movieappwithcleanarch.domain.usecases.GetMovieListUseCase
 import com.dazai.movieappwithcleanarch.ui.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,10 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-        private val useCase: GetMovieListUseCase
+        private val getMovieListUseCase: GetMovieListUseCase
 ) : ViewModel() {
-
-    private val _viewState = MutableLiveData<Resource<List<Movie>>>()
 
     private val _showMoviesEvent = MutableLiveData<List<Movie>>()
 
@@ -40,11 +38,11 @@ class MainViewModel @Inject constructor(
     private fun showMovies() {
         viewModelScope.launch {
             _showLoadingEvent.value = true
-            when (useCase()) {
+            when (getMovieListUseCase()) {
                 is Resource.Success -> {
-                    _showMoviesEvent.value = useCase().data ?: return@launch
+                    _showMoviesEvent.value = getMovieListUseCase().data ?: return@launch
                 }
-                else -> _showErrorEvent.value = useCase().message ?: return@launch
+                else -> _showErrorEvent.value = getMovieListUseCase().message ?: return@launch
             }
         }
     }

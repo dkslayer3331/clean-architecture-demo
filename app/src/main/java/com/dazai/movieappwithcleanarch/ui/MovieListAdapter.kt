@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 import com.dazai.movieappwithcleanarch.ui.utils.showImage
 
 class MovieListAdapter(private val onClick : (Int) -> Unit) : ListAdapter<Movie, MovieViewHolder>(diffUtil) {

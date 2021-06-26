@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dazai.movieappwithcleanarch.domain.entities.Movie
+import com.dazai.movieappwithcleanarch.domain.model.Movie
 import com.dazai.movieappwithcleanarch.domain.usecases.GetMovieDetailUseCase
 import com.dazai.movieappwithcleanarch.ui.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
