@@ -13,18 +13,8 @@ fun ImageView.showImage(url: String) = Glide.with(this.context).load(url).into(t
 
 fun AppCompatActivity.showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-/** model to entity mappers **/
-fun MovieResponse.toEntity() = with(this) {
-    MovieEntity(
-            id = id.toInt(),
-            title = title,
-            posterPath = "$IMAGE_ENDPOINT${posterPath}",
-            originalTitle = originalTitle,
-            voteAverage = vote
-    )
-}
+/** response to db entity **/
 
-//  response to db entity
 fun MovieResponse.toDbEntity() = with(this) {
     MovieEntity(
             id = id.toInt(),
@@ -44,14 +34,16 @@ fun MovieDetailResponse.toDbEntity() = with(this){
             posterPath = posterPath,
             backDropPath = backdropPath,
             genres = genres,
-            voteAverage = voteAverage.toFloat()
+            voteAverage = voteAverage.toFloat(),
+            releaseDate = releaseDate
     )
 }
 
-// db entity to usecase entity
+/** db entity to use case models **/
 fun MovieEntity.toUseCaseEntity() = with(this){
     Movie(
-      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "", genres?.joinToString() ?: "", voteAverage
+      id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "",
+            genres?.joinToString { it.name } ?: "", voteAverage, releaseDate ?: ""
     )
 }
 

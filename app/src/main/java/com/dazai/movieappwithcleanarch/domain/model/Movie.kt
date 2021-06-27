@@ -5,7 +5,8 @@ data class Movie(
         val originalTitle: String,
         val posterPath: String,
         val title: String,
-        val overview: String = "",
-        val genres: String = "",
-        val voteAverage: Float = 0F
+        val overview: String,
+        val genres: String,
+        val voteAverage: Float,
+        val releaseYear : String
 )

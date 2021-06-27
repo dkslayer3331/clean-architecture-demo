@@ -3,7 +3,7 @@ package com.dazai.movieappwithcleanarch.data.db
 import androidx.room.*
 import com.dazai.movieappwithcleanarch.data.entities.MovieEntity
 
-@Database(entities = [MovieEntity::class], version = 3, exportSchema = false)
+@Database(entities = [MovieEntity::class], version = 4, exportSchema = false)
 abstract class AppDb : RoomDatabase(){
     abstract fun movieDao() : MovieDao
 }

@@ -72,6 +72,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 tvGenres.text = genres
                 tvRatingBar.rating = voteAverage
                 ivMoviePoster.showImage(posterPath)
+                tvReleaseYear.text = releaseYear
             }
         })
 

@@ -20,5 +20,6 @@ data class MovieEntity(
         @Nullable
         val overview : String? = "",
         val posterPath : String,
-        val voteAverage : Float
+        val voteAverage : Float,
+        val releaseDate : String? = ""
 )
