@@ -14,38 +14,25 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
 
     override suspend fun fetchMovies(): List<Movie> {
-        return getMoviesFromAvailableSource()
-    }
-
-    override suspend fun refreshMovies(): List<Movie> {
-        return try {
-            db.movieDao().deleteAllMovies()
-            db.movieDao().addMovies(api.getMovies().movies.map { it.toDbEntity() })
-            db.movieDao().getAllMovies().map { it.toUseCaseEntity() }
-        } catch (e: Exception) {
-            throw e
+        try {
+           val moviesFromRemote = api.getMovies()
+            db.movieDao().addMovies(moviesFromRemote.movies.map { it.toDbEntity() })
+        } catch (exception: Exception) {
+            if(db.movieDao().getAllMovies().isEmpty()) throw exception
+            return db.movieDao().getAllMovies().map { it.toUseCaseEntity() }
         }
+        return db.movieDao().getAllMovies().map { it.toUseCaseEntity() }
     }
 
     override suspend fun getMovieDetail(id: Int): Movie {
-        return try {
+        try {
             val movieDetail = api.getMovieDetail(id)
             db.movieDao().updateDetail(movieDetail.toDbEntity())
-            db.movieDao().getMovieDetail(id).toUseCaseEntity()
-        } catch (e: Exception) {
-            throw e
+        } catch (exception: Exception) {
+            if(db.movieDao().getMovieDetail(id) == null) throw exception
+            return db.movieDao().getMovieDetail(id).toUseCaseEntity() // db as source of truth
         }
-    }
-
-    private suspend fun getMoviesFromAvailableSource(): List<Movie> {
-        return try {
-            if (db.movieDao().getAllMovies().isEmpty()) {
-                db.movieDao().addMovies(api.getMovies().movies.map { it.toDbEntity() })
-            }
-            db.movieDao().getAllMovies().map { it.toUseCaseEntity() }
-        } catch (e: Exception) {
-            throw e
-        }
+        return db.movieDao().getMovieDetail(id).toUseCaseEntity()
     }
 
 }
