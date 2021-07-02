@@ -73,6 +73,7 @@ class MovieDetailActivity : AppCompatActivity() {
                 tvRatingBar.rating = voteAverage
                 ivMoviePoster.showImage(posterPath)
                 tvReleaseYear.text = releaseYear
+                supportActionBar?.title = title
             }
         })
 

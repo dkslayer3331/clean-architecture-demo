@@ -3,8 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="160dp"
-    android:layout_height="200dp"
-    android:layout_margin="16dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:padding="8dp"
     android:orientation="vertical">
 
     <ImageView
@@ -17,7 +18,8 @@
     <TextView
         android:id="@+id/tvMovieTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
         tools:text="Movie Name"
         android:gravity="center" />
 
