@@ -40,9 +40,13 @@ class MainViewModel @Inject constructor(
             _showLoadingEvent.value = true
             when (getMovieListUseCase()) {
                 is Resource.Success -> {
+                    _showLoadingEvent.value = false
                     _showMoviesEvent.value = getMovieListUseCase().data ?: return@launch
                 }
-                else -> _showErrorEvent.value = getMovieListUseCase().message ?: return@launch
+                else -> {
+                    _showLoadingEvent.value = false
+                    _showErrorEvent.value = getMovieListUseCase().message ?: return@launch
+                }
             }
         }
     }
