@@ -66,6 +66,7 @@ class MovieDetailActivity : AppCompatActivity() {
         })
 
         detailViewModel.successEvent.observe(this, Observer {
+            Log.d("movieDetail","$it")
             with(it) {
                 tvTitle.text = title
                 tvOverView.text = overview

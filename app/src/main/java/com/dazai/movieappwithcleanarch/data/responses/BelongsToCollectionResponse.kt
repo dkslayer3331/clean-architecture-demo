@@ -1,15 +1,16 @@
 package com.dazai.movieappwithcleanarch.data.responses
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-import com.google.gson.annotations.SerializedName
-
+@JsonClass(generateAdapter = true)
 data class BelongsToCollectionResponse(
-    @SerializedName("backdrop_path")
+    @Json(name = "backdrop_path")
     val backdropPath: Any?,
-    @SerializedName("id")
+    @Json(name = "id")
     val id: Int,
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String,
-    @SerializedName("poster_path")
+    @Json(name = "poster_path")
     val posterPath: Any?
 )

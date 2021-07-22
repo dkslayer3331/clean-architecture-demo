@@ -1,15 +1,15 @@
 package com.dazai.movieappwithcleanarch.data.responses
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-
-import com.google.gson.annotations.SerializedName
-
+@JsonClass(generateAdapter = true)
 data class ProductionCompanyResponse(
-    @SerializedName("id")
+    @Json(name = "id")
     val id: Int,
-    @SerializedName("logo_path")
+    @Json(name = "logo_path")
     val logoPath: String,
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String,
-    @SerializedName("origin_country")
+    @Json(name = "origin_country")
     val originCountry: String
 )

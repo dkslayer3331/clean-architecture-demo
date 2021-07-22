@@ -1,20 +1,16 @@
 package com.dazai.movieappwithcleanarch.data.responses
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "movies")
+@JsonClass(generateAdapter = true)
 data class MovieResponse(
-    @PrimaryKey
-    @SerializedName("id")
     val id : Long,
-    @SerializedName("poster_path")
+    @Json(name = "poster_path")
     val posterPath : String,
-    @SerializedName("original_title")
+    @Json(name = "original_title")
     val originalTitle : String,
-    @SerializedName("title")
     val title : String,
-    @SerializedName("vote_average")
+    @Json(name = "vote_average")
     val vote : Float
 )

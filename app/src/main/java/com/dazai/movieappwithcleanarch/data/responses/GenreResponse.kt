@@ -1,11 +1,12 @@
 package com.dazai.movieappwithcleanarch.data.responses
 
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
-import com.google.gson.annotations.SerializedName
-
+@JsonClass(generateAdapter = true)
 data class GenreResponse(
-    @SerializedName("id")
+    @Json(name = "id")
     val id: Int,
-    @SerializedName("name")
+    @Json(name = "name")
     val name: String
 )

@@ -2,6 +2,7 @@ package com.dazai.movieappwithcleanarch.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import androidx.activity.viewModels
@@ -12,6 +13,7 @@ import com.dazai.movieappwithcleanarch.R
 import com.dazai.movieappwithcleanarch.ui.utils.ItemDecoration
 import com.dazai.movieappwithcleanarch.ui.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
+import java.lang.ref.WeakReference
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -53,9 +55,12 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.showMoviesEvent.observe(this, Observer {
+            Log.d("movieList","${it.first()}")
             progressBar.visibility = View.GONE
             movieListAdapter.submitList(it)
         })
 
+
     }
+
 }
