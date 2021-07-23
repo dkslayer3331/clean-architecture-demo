@@ -20,8 +20,17 @@ interface MovieDao{
     @Query("delete from movie")
     suspend fun deleteAllMovies()
 
+    @Query("delete from movie where id = :movieId")
+    suspend fun deleteMovie(movieId : Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateDetail(movie : MovieEntity)
+    suspend fun addMovie(movieEntity: MovieEntity)
+
+    @Transaction
+    suspend fun updateMovieDetail(movieId: Int, movieEntity: MovieEntity){
+        deleteMovie(movieId)
+        addMovie(movieEntity)
+    }
 
     @Query("select * from movie where id = :movieId")
     suspend fun getMovieDetail(movieId : Int) : MovieEntity

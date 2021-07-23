@@ -6,11 +6,11 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class BelongsToCollectionResponse(
     @Json(name = "backdrop_path")
-    val backdropPath: Any?,
+    val backdropPath: String?,
     @Json(name = "id")
     val id: Int,
     @Json(name = "name")
     val name: String,
     @Json(name = "poster_path")
-    val posterPath: Any?
+    val posterPath: String?
 )

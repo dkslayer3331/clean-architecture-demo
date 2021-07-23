@@ -10,10 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.dazai.movieappwithcleanarch.R
+import com.dazai.movieappwithcleanarch.data.network.MovieApi
 import com.dazai.movieappwithcleanarch.ui.utils.ItemDecoration
 import com.dazai.movieappwithcleanarch.ui.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
 import java.lang.ref.WeakReference
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -30,6 +33,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var progressBar: ProgressBar
 
     lateinit var recyclerView: RecyclerView
+
+    @Inject lateinit var api : MovieApi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

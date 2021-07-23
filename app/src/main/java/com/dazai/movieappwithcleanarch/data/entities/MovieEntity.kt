@@ -11,12 +11,12 @@ import com.dazai.movieappwithcleanarch.data.responses.GenreResponse
 data class MovieEntity(
         @PrimaryKey
         val id : Int,
-        val backDropPath : String? = "",
+        val backDropPath : String?,
         val genres : List<GenreResponse>?,
         val originalTitle : String,
         val title : String,
         val overview : String?,
         val posterPath : String,
         val voteAverage : Float,
-        val releaseDate : String? = ""
+        val releaseDate : String?
 )

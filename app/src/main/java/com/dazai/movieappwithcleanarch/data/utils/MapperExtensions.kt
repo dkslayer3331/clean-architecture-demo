@@ -17,12 +17,14 @@ fun MovieResponse.toDbEntity() = with(this) {
             voteAverage = vote,
             posterPath = posterPath,
             genres = emptyList(),
-            overview = ""
+            overview = "",
+            backDropPath = "",
+            releaseDate = ""
     )
 }
 
 fun MovieDetailResponse.toDbEntity() = with(this){
-    Log.d("networkResponse", "$this")
+//    Log.d("networkResponse", "$this")
     MovieEntity(
             id = id,
             title = title,
@@ -38,7 +40,6 @@ fun MovieDetailResponse.toDbEntity() = with(this){
 
 /** db entity to use case models **/
 fun MovieEntity.toUseCaseEntity() = with(this){
-    Log.d("mapperToUseCase","$overview")
     Movie(
             id, originalTitle, IMAGE_ENDPOINT + posterPath, title, overview ?: "",
             genres?.joinToString { it.name } ?: "", voteAverage, releaseDate ?: ""

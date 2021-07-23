@@ -27,7 +27,7 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun getMovieDetail(id: Int): Movie {
         try {
             val movieDetail = api.getMovieDetail(id)
-            db.movieDao().updateDetail(movieDetail.toDbEntity())
+            db.movieDao().updateMovieDetail(id, movieDetail.toDbEntity())
         } catch (exception: Exception) {
             if(db.movieDao().getMovieDetail(id) == null) throw exception
             return db.movieDao().getMovieDetail(id).toUseCaseEntity() // db as source of truth
