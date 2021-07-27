@@ -1,55 +1,66 @@
 package com.dazai.movieappwithcleanarch
 
-import com.dazai.movieappwithcleanarch.data.responses.MovieDetailResponse
-import com.dazai.movieappwithcleanarch.data.utils.toDbEntity
-import com.dazai.movieappwithcleanarch.data.utils.toUseCaseEntity
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.dazai.movieappwithcleanarch.domain.model.Movie
+import com.dazai.movieappwithcleanarch.domain.usecases.GetMovieListUseCase
+import com.dazai.movieappwithcleanarch.ui.utils.Resource
+import junit.framework.Assert.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-
-import org.junit.Assert.*
+import org.junit.rules.TestRule
+import org.junit.runner.RunWith
+import org.mockito.junit.MockitoJUnitRunner
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.whenever
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@ExperimentalCoroutinesApi
+@RunWith(MockitoJUnitRunner::class)
 class ExampleUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+
+    @Rule
+    @JvmField
+    var rule: TestRule = InstantTaskExecutorRule()
+
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var coroutinesTestRule = CoroutinesTestRule()
+
+    lateinit var mockItems : List<Movie>
+
+    private val testDispatcher = TestCoroutineDispatcher()
+
+
+    @Before
+    fun setup() {
+        mockItems = getMockMovies()
     }
 
+    private val movieListUseCase = mock<GetMovieListUseCase>()
+
     @Test
-    fun test_detailMapper(){
-        val detail = MovieDetailResponse(
-                adult = true,
-                releaseDate = "505050",
-                overview = "ggwp overview",
-                genres = emptyList(),
-                posterPath = "/path",
-                voteAverage = 5.6,
-                originalTitle = "title",
-                title = "ttile",
-                id = 3456,
-                backdropPath = "/path",
-                belongsToCollection = null,
-                budget = 345,
-                homepage = "",
-                imdbId = "",
-                originalLanguage = "",
-                popularity = 3.4,
-                productionCompanies = null,
-                productionCountries = null,
-                revenue = 3,
-                runtime = 3,
-                spokenLanguages = null,
-                status = "",
-                tagline = "",
-                video = false,
-                voteCount = 345
-        )
-        val entity = detail.toDbEntity()
-        val useCaseModel = entity.toUseCaseEntity()
-        assertEquals(detail.overview.isNotEmpty(), useCaseModel.overview.isNotEmpty())
+    fun testMovieListUseCaseSuccess(){
+
+        val successResult = Resource.Success(mockItems)
+
+        testDispatcher.pauseDispatcher()
+
+            runBlockingTest {
+                whenever(movieListUseCase.invoke()).thenReturn(successResult)
+                testDispatcher.resumeDispatcher()
+                assertEquals(mockItems, getMockMovies())
+            }
     }
+
+
+
 
 }

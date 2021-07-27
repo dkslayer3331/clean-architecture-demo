@@ -8,6 +8,7 @@ import com.dazai.movieappwithcleanarch.domain.model.Movie
 import com.dazai.movieappwithcleanarch.domain.usecases.GetMovieListUseCase
 import com.dazai.movieappwithcleanarch.ui.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
