@@ -1,5 +1,9 @@
 package com.dazai.movieappwithcleanarch.data.di
 
+import com.dazai.movieappwithcleanarch.data.db.LocalDataSource
+import com.dazai.movieappwithcleanarch.data.db.LocalDataSourceImpl
+import com.dazai.movieappwithcleanarch.data.network.NetworkDataSource
+import com.dazai.movieappwithcleanarch.data.network.NetworkDataSourceImpl
 import com.dazai.movieappwithcleanarch.data.repositories.MovieRepositoryImpl
 import com.dazai.movieappwithcleanarch.domain.ErrorHandler
 import com.dazai.movieappwithcleanarch.data.utils.ErrorHandlerImpl
@@ -28,5 +32,11 @@ abstract class AppModule {
 
     @Binds
     abstract fun bindErrorUseCase(impl : ErrorUseCaseImpl) : ErrorUseCase
+
+    @Binds
+    abstract fun bindNetworkSource(impl : NetworkDataSourceImpl) : NetworkDataSource
+
+    @Binds
+    abstract fun bindLocalSource(impl : LocalDataSourceImpl) : LocalDataSource
 
 }
