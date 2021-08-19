@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import com.dazai.movieappwithcleanarch.R
+import com.dazai.movieappwithcleanarch.databinding.ActivityMovieDetailBinding
 import com.dazai.movieappwithcleanarch.ui.utils.showImage
 import com.dazai.movieappwithcleanarch.ui.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,29 +21,8 @@ class MovieDetailActivity : AppCompatActivity() {
 
     private val detailViewModel: MovieDetailViewModel by viewModels()
 
-    private val tvTitle by lazy {
-        findViewById<TextView>(R.id.tvTitle)
-    }
+    lateinit var binding : ActivityMovieDetailBinding
 
-    private val tvOverView by lazy {
-        findViewById<TextView>(R.id.tvOverview)
-    }
-
-    private val tvGenres by lazy {
-        findViewById<TextView>(R.id.tvGenres)
-    }
-
-    private val tvReleaseYear by lazy {
-        findViewById<TextView>(R.id.tvReleaseYear)
-    }
-
-    private val tvRatingBar by lazy {
-        findViewById<RatingBar>(R.id.ratingBar)
-    }
-
-    private val ivMoviePoster by lazy {
-        findViewById<ImageView>(R.id.ivMovieDetailPoster)
-    }
 
     companion object {
         const val IE_MOVIE_ID = "movie_id"
@@ -55,7 +35,10 @@ class MovieDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_detail)
+
+        binding = ActivityMovieDetailBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         val movieId = intent.getIntExtra(IE_MOVIE_ID, 0)
 
@@ -66,14 +49,15 @@ class MovieDetailActivity : AppCompatActivity() {
         })
 
         detailViewModel.successEvent.observe(this, Observer {
-            Log.d("movieDetail","$it")
             with(it) {
-                tvTitle.text = title
-                tvOverView.text = overview
-                tvGenres.text = genres
-                tvRatingBar.rating = voteAverage
-                ivMoviePoster.showImage(posterPath)
-                tvReleaseYear.text = releaseYear
+                with(binding){
+                    tvTitle.text = title
+                    tvOverview.text = overview
+                    tvGenres.text = genres
+                    ratingBar.rating = voteAverage
+                    ivMovieDetailPoster.showImage(posterPath)
+                    tvReleaseYear.text = releaseYear
+                }
                 supportActionBar?.title = title
             }
         })
