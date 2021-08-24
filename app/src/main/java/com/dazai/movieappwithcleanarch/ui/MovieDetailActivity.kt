@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -45,10 +46,19 @@ class MovieDetailActivity : AppCompatActivity() {
         detailViewModel.getMovieDetail(movieId)
 
         detailViewModel.errorEvent.observe(this, Observer {
+            binding.movieDetailLayout.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
             showToast(it)
         })
 
+        detailViewModel.loadingEvent.observe(this, Observer {
+            binding.movieDetailLayout.visibility = View.GONE
+            binding.progressBar.visibility = View.VISIBLE
+        })
+
         detailViewModel.successEvent.observe(this, Observer {
+            binding.movieDetailLayout.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.GONE
             with(it) {
                 with(binding){
                     tvTitle.text = title
