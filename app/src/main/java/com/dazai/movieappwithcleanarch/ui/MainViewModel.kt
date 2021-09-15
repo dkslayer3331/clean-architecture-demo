@@ -36,9 +36,9 @@ class MainViewModel @Inject constructor(
         showMovies()
     }
 
-    private fun showMovies() {
+     fun showMovies() {
+         _showLoadingEvent.value = true
         viewModelScope.launch {
-            _showLoadingEvent.value = true
             when (getMovieListUseCase()) {
                 is Resource.Success -> {
                     _showLoadingEvent.value = false
