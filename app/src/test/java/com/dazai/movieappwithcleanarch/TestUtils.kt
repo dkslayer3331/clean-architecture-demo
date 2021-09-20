@@ -22,6 +22,17 @@ fun getMockMovies() : List<Movie>{
     }
 }
 
+fun getMockedMovie() = Movie(
+        id = 3,
+        title = "title3",
+        originalTitle = "originalTitle3",
+        voteAverage = 3.5f,
+        posterPath = "posterPath3",
+        genres = "action, thriller, mystery",
+        overview = "overview3",
+        releaseYear = "year3"
+)
+
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS,
@@ -40,7 +51,6 @@ fun <T> LiveData<T>.getOrAwaitValue(
 
     afterObserve.invoke()
 
-    // Don't wait indefinitely if the LiveData is not set.
     if (!latch.await(time, timeUnit)) {
         this.removeObserver(observer)
         throw TimeoutException("LiveData value was never set.")
